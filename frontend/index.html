@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Financial Goal Planner</title>
+    <link rel="stylesheet" href="/frontend/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-coins"></i> AI Financial Goal Planner</h1>
+            <p>Set, track, and achieve your financial goals with AI assistance</p>
+        </header>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <div class="user-profile">
+                    <div class="avatar">👤</div>
+                    <h3 id="username">Welcome, User</h3>
+                </div>
+                
+                <nav>
+                    <ul>
+                        <li class="active" data-section="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</li>
+                        <li data-section="goals"><i class="fas fa-bullseye"></i> My Goals</li>
+                        <li data-section="new-goal"><i class="fas fa-plus-circle"></i> New Goal</li>
+                        <li data-section="insights"><i class="fas fa-chart-line"></i> Insights</li>
+                        <li data-section="ai-assistant"><i class="fas fa-robot"></i> AI Assistant</li>
+                    </ul>
+                </nav>
+                
+                <div class="progress-summary">
+                    <h4>Overall Progress</h4>
+                    <div class="progress-bar">
+                        <div class="progress" id="overall-progress" style="width: 45%;"></div>
+                    </div>
+                    <p>45% of goals on track</p>
+                </div>
+            </div>
+
+            <div class="content-area">
+                <div class="section active" id="dashboard-section">
+                    <h2><i class="fas fa-tachometer-alt"></i> Dashboard</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Active Goals</h3>
+                            <p class="stat-value" id="active-goals">5</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Completed Goals</h3>
+                            <p class="stat-value" id="completed-goals">2</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Total Saved</h3>
+                            <p class="stat-value" id="total-saved">$12,450</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Next Deadline</h3>
+                            <p class="stat-value" id="next-deadline">Jun 15, 2023</p>
+                        </div>
+                    </div>
+                    
+                    <div class="upcoming-goals">
+                        <h3>Upcoming Goals <span class="see-all">See All</span></h3>
+                        <div class="goals-list" id="upcoming-goals-list">
+                            <!-- Dynamically populated -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section" id="goals-section">
+                    <h2><i class="fas fa-bullseye"></i> My Goals</h2>
+                    <div class="filter-controls">
+                        <select id="goal-filter">
+                            <option value="all">All Goals</option>
+                            <option value="active">Active</option>
+                            <option value="completed">Completed</option>
+                            <option value="behind">Behind Schedule</option>
+                        </select>
+                        <button id="sort-goals">Sort by Deadline</button>
+                    </div>
+                    <div class="goals-list" id="all-goals-list">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+
+                <div class="section" id="new-goal-section">
+                    <h2><i class="fas fa-plus-circle"></i> Create New Goal</h2>
+                    <form id="goal-form">
+                        <div class="form-group">
+                            <label for="goal-name">Goal Name</label>
+                            <input type="text" id="goal-name" placeholder="e.g., Buy a house, Retirement fund" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="goal-amount">Target Amount ($)</label>
+                            <input type="number" id="goal-amount" min="1" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="saved-amount">Already Saved ($)</label>
+                            <input type="number" id="saved-amount" min="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="goal-deadline">Target Date</label>
+                            <input type="date" id="goal-deadline" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="goal-priority">Priority</label>
+                            <select id="goal-priority">
+                                <option value="low">Low</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="goal-category">Category</label>
+                            <select id="goal-category">
+                                <option value="housing">Housing</option>
+                                <option value="retirement">Retirement</option>
+                                <option value="education">Education</option>
+                                <option value="travel">Travel</option>
+                                <option value="emergency">Emergency Fund</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Create Goal</button>
+                    </form>
+                </div>
+
+                <div class="section" id="insights-section">
+                    <h2><i class="fas fa-chart-line"></i> Insights</h2>
+                    <div class="charts-container">
+                        <div class="chart-card">
+                            <h3>Goal Distribution by Category</h3>
+                            <div class="chart" id="category-chart">
+                                <!-- Chart will be rendered here -->
+                            </div>
+                        </div>
+                        <div class="chart-card">
+                            <h3>Progress Timeline</h3>
+                            <div class="chart" id="timeline-chart">
+                                <!-- Chart will be rendered here -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ai-recommendations">
+                        <h3>AI Recommendations</h3>
+                        <div class="recommendation" id="ai-recommendation">
+                            <p>Based on your current goals and progress, I recommend increasing your monthly savings by 15% to meet your retirement target on time. Consider reviewing your discretionary spending to find areas to cut back.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section" id="ai-assistant-section">
+                    <h2><i class="fas fa-robot"></i> AI Financial Assistant</h2>
+                    <div class="chat-container">
+                        <div class="chat-messages" id="chat-messages">
+                            <div class="message bot-message">
+                                <div class="message-content">
+                                    <p>Hello! I'm your AI Financial Assistant. How can I help you with your financial goals today?</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-input">
+                            <input type="text" id="user-input" placeholder="Ask me anything about financial planning...">
+                            <button id="send-button"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                        <div class="quick-questions">
+                            <p>Quick questions:</p>
+                            <button class="quick-question">How can I save more?</button>
+                            <button class="quick-question">Am I on track for retirement?</button>
+                            <button class="quick-question">Best way to pay off debt?</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/frontend/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
